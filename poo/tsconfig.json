@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es5"
+  },
+  "include": [
+    "atividades/atividade7_tratamento_de_erros/bank.ts"
+  ]
+}
