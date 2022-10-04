@@ -46,30 +46,26 @@ void insert(Item x, Stack S){
     }
 }
 
-void remove(Stack S){
+void pop(Stack S){
     if(is_empty(S)){
         puts("Stack is empty");
         abort();
     } else {
+        Item x = S->item[S->top];
         S->top--;
+        return x;
     }
 }
 
+void destroy(Stack *A){
+    free((*A)->item);
+    free(*A);
+    *A = NULL;
+
+}
 int main(void){
     Stack a = stack(5);
     is_full(a);
     printf("%d\n", is_full(a));
 
 }
-
-/*
-    printf("%d,%d\n", a, b);
-typedef struct { char valor[10]; } Italo;
-int main(void){
-    Italo x = { "um" };
-    Italo y = { "dois" };
-    puts (x.valor);
-    x = y;
-    puts(x.valor);
-    return 0;
-}*/
