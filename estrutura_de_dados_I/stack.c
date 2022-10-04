@@ -12,7 +12,7 @@ typedef struct stack
 } *Stack;           //Cria  um ponteiro Stack no formato stack
 
 
-Stack stack(int n){ //Função para criar uma pilha
+Stack create_stack(int n){ //Função para criar uma pilha
     Stack S = malloc(sizeof(struct stack));
     S -> top = -1; //(*S).top = -1
     S -> max = n; //(*S).max = n
@@ -36,7 +36,7 @@ bool is_full(Stack S){
     }
 }
 
-void insert(Item x, Stack S){
+void push(Item x, Stack S){
     if(is_full(S)){
         puts("Stack is full!");
         abort();
@@ -46,7 +46,7 @@ void insert(Item x, Stack S){
     }
 }
 
-void pop(Stack S){
+int pop(Stack S){
     if(is_empty(S)){
         puts("Stack is empty");
         abort();
@@ -61,11 +61,12 @@ void destroy(Stack *A){
     free((*A)->item);
     free(*A);
     *A = NULL;
-
 }
-int main(void){
-    Stack a = stack(5);
-    is_full(a);
-    printf("%d\n", is_full(a));
+
+int main(){
+    Stack a = create_stack(5);
+    push('b', a);
+    printf("\n%d\n",a->top);
+    printf("\n%s\n",a->item);
 
 }
