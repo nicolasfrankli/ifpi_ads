@@ -19,7 +19,7 @@ function prime_number(number) {
     }
 }
 //3
-function salutation(name, pronoun) {
+export function salutation(name, pronoun) {
     if (pronoun === void 0) { pronoun = "Sr."; }
     return "".concat(pronoun, " ").concat(name, ".");
 }

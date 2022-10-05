@@ -10,7 +10,7 @@ var Account = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Account.prototype.sacar = function (valor) {
+    Account.prototype.withdraw = function (valor) {
         if (this._balance < valor) {
             throw new Error('Saldo insuficiente.');
         }
@@ -44,12 +44,26 @@ var Bank = /** @class */ (function () {
     };
     return Bank;
 }());
-var conta1 = new Account('1', 50);
-var conta2 = new Account('2', 80);
+var conta1 = new Account('1', 100);
+var conta2 = new Account('2', 100);
+var c3;
+conta1 = conta2;
+c3 = conta1;
 var inter = new Bank();
 var nubank = new Bank();
 inter.add_account(conta1);
 nubank.add_account(conta2);
-conta1.transfer(60, conta2);
+conta1.withdraw(10);
+conta1.transfer(50, conta2);
 console.log(conta1.balance);
 console.log(conta2.balance);
+console.log(c3.balance);
+/*
+let c3: Conta;
+c1 = c2;
+c3 = c1;
+c1.sacar(10);
+c1.transferir(c2,50);
+console.log(c1.consultarSaldo());
+console.log(c2.consultarSaldo());
+console.log(c3.consultarSaldo());*/ 
