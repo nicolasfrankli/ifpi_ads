@@ -27,7 +27,8 @@ var Account = /** @class */ (function () {
 }());
 var Bank = /** @class */ (function () {
     function Bank() {
-        this._accounts = [];
+        this._accounts = new Array();
+        this.bankTotalBalance = 0;
     }
     Bank.prototype.search_account = function (id) {
         for (var _i = 0, _a = this._accounts; _i < _a.length; _i++) {
@@ -42,28 +43,27 @@ var Bank = /** @class */ (function () {
             this._accounts.push(account);
         }
     };
+    Bank.prototype.numberofAccounts = function () {
+        return this._accounts.length;
+    };
+    Bank.prototype.totalBalance = function () {
+        for (var _i = 0, _a = this._accounts; _i < _a.length; _i++) {
+            var account = _a[_i];
+            this.bankTotalBalance += account.balance;
+        }
+        return this.bankTotalBalance;
+    };
+    Bank.prototype.averageAccountBalance = function () {
+        return "".concat((this.bankTotalBalance / this.numberofAccounts()).toFixed(2));
+    };
     return Bank;
 }());
 var conta1 = new Account('1', 100);
 var conta2 = new Account('2', 100);
-var c3;
-conta1 = conta2;
-c3 = conta1;
+var c3 = new Account('3', 1000);
 var inter = new Bank();
 var nubank = new Bank();
 inter.add_account(conta1);
 nubank.add_account(conta2);
-conta1.withdraw(10);
-conta1.transfer(50, conta2);
-console.log(conta1.balance);
-console.log(conta2.balance);
-console.log(c3.balance);
-/*
-let c3: Conta;
-c1 = c2;
-c3 = c1;
-c1.sacar(10);
-c1.transferir(c2,50);
-console.log(c1.consultarSaldo());
-console.log(c2.consultarSaldo());
-console.log(c3.consultarSaldo());*/ 
+inter.add_account(c3);
+console.log(inter.numberofAccounts());

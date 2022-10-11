@@ -8,13 +8,13 @@ class Account {
     get balance() {
         return this._balance;
     }
-    withdraw(valor: number) {
+    withdraw(valor: number){
         if (this._balance < valor) {
             throw new Error('Saldo insuficiente.');
         }
         this._balance = this._balance - valor;
     }
-    transfer(valor, account) {
+    transfer(valor: number, account) {
         if (this._balance < valor) {
             throw new Error('Saldo insuficiente.')
         }
@@ -24,7 +24,8 @@ class Account {
 }
 
 class Bank {
-    public _accounts: Account[] = [];
+    public _accounts: Array<Account> = new Array<Account>();
+    private bankTotalBalance: number = 0;
 
     search_account(id: String): boolean {
         for (let account of this._accounts) {
@@ -39,20 +40,29 @@ class Bank {
             this._accounts.push(account)
         }
     }
+
+    numberofAccounts(): number{
+        return this._accounts.length;
+    }
+
+    totalBalance(): number{
+        for (let account of this._accounts){
+            this.bankTotalBalance += account.balance;
+        }
+        return this.bankTotalBalance;
+    }
+    averageAccountBalance(): String{
+        return `${(this.bankTotalBalance / this.numberofAccounts()).toFixed(2)}`;
+    }
 }
 
 let conta1: Account = new Account('1', 100);
 let conta2: Account = new Account('2', 100);
-let c3: Account;
-conta1 = conta2;
-c3 = conta1;
+let c3: Account = new Account('3', 1000);
 let inter: Bank = new Bank();
 let nubank: Bank = new Bank();
 inter.add_account(conta1);
 nubank.add_account(conta2);
-conta1.withdraw(10);
-conta1.transfer(50, conta2)
-console.log(conta1.balance)
-console.log(conta2.balance)
-console.log(c3.balance)
+inter.add_account(c3);
+console.log(inter.numberofAccounts());
 

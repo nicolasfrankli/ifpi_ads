@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-typedef char Item; //Define o tipo dos itens da pilha
+typedef int Item; //Define o tipo dos itens da pilha
 
 typedef struct stack
 {
@@ -11,14 +11,20 @@ typedef struct stack
     Item *item;     //Itens da pilha
 } *Stack;           //Cria  um ponteiro Stack no formato stack
 
-
-Stack create_stack(int n){ //Função para criar uma pilha
+Stack create_stack(){ //Função para criar uma pilha
     Stack S = malloc(sizeof(struct stack));
     S -> top = -1; //(*S).top = -1
-    S -> max = n; //(*S).max = n
-    S -> item = malloc(n*sizeof(Item));
+    //S -> max = n; (*S).max = n
+    S -> item = malloc(sizeof(Item));
     return S;
 }
+
+/*Pilha* create_stack() {
+	Pilha* new_stack = (Pilha*) malloc(sizeof(Pilha));
+	new_stack->value = 0;
+	new_stack->prox = NULL;
+
+	return new_stack;*/
 
 bool is_empty(Stack S){
     if(S -> top == -1){
@@ -28,15 +34,15 @@ bool is_empty(Stack S){
     }
 }
 
-bool is_full(Stack S){
+/*bool is_full(Stack S){
     if(S -> top == S -> max - 1){
         return true;
     } else {
         return false;
     }
-}
+}*/
 
-void push(Item x, Stack S){
+/*void push(Item x, Stack S){
     if(is_full(S)){
         puts("Stack is full!");
         abort();
@@ -44,6 +50,11 @@ void push(Item x, Stack S){
         S->top++;
         S->item[S->top] = x;
     }
+}*/
+
+void push(Item x, Stack S){
+    S->top++;
+    S->item[S->top] = x;
 }
 
 int pop(Stack S){
@@ -61,12 +72,4 @@ void destroy(Stack *A){
     free((*A)->item);
     free(*A);
     *A = NULL;
-}
-
-int main(){
-    Stack a = create_stack(5);
-    push('b', a);
-    printf("\n%d\n",a->top);
-    printf("\n%s\n",a->item);
-
 }

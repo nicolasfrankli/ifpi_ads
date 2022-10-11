@@ -1,5 +1,4 @@
 #include "stack.h"
-//1 Step: Create a Stack that get itens from the user. The input stop when value is equal to 0.
 
 void ordinate(int value, Stack A, Stack B){
     if(!(value <= A -> item[A -> top] || is_empty(A))){
