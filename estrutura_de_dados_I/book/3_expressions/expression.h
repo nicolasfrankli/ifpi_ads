@@ -35,7 +35,7 @@ char* postfix(char* e) {
     return s;
 }
 
-int value(char* e) {
+float value(char* e) {
     Stack S = create_stack();
     for(int i = 0; e[i]; i++) {
         if(isdigit(e[i])) push(e[i]-'0', S);
