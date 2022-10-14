@@ -38,9 +38,14 @@ class microBlog {
             this.posts.push(post_to_insert);
         }
     }
-    Remove(post_to_remove: Post): void{
-        if(this.SearchPost(post_to_remove.id)){
-            this.posts.splice(post_to_remove);
+
+    Remove(id_post_to_remove: number): void{
+        if(this.SearchPost(id_post_to_remove)){
+            for (let index = 0; index < this.posts.length; index++) {
+                if(this.posts[index].id == id_post_to_remove){
+                    this.posts.splice(0, index);
+                }
+            }
         }
     }
 

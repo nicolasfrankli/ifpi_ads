@@ -19,13 +19,6 @@ Stack create_stack(){ //Função para criar uma pilha
     return S;
 }
 
-/*Pilha* create_stack() {
-	Pilha* new_stack = (Pilha*) malloc(sizeof(Pilha));
-	new_stack->value = 0;
-	new_stack->prox = NULL;
-
-	return new_stack;*/
-
 bool is_empty(Stack S){
     if(S -> top == -1){
         return true;
