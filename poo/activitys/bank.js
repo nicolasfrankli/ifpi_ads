@@ -31,11 +31,16 @@ var Bank = /** @class */ (function () {
         this.bankTotalBalance = 0;
     }
     Bank.prototype.search_account = function (id) {
+        var count = 0;
         for (var _i = 0, _a = this._accounts; _i < _a.length; _i++) {
             var account = _a[_i];
             if (id == account._numero) {
                 return false;
             }
+            count++;
+        }
+        if (count == this._accounts.length - 1) {
+            return true;
         }
     };
     Bank.prototype.add_account = function (account) {

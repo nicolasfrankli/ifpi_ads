@@ -28,11 +28,17 @@ class Bank {
     private bankTotalBalance: number = 0;
 
     search_account(id: String): boolean {
+        let count: number = 0;
         for (let account of this._accounts) {
             if (id == account._numero){
                 return false;
             }
+            count++
         }
+        if (count == this._accounts.length - 1){
+            return true;
+        }
+
     }
 
     add_account(account: Account): void {
