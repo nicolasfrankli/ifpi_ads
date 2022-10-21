@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h> 
 #include "stack_for_queue.h"
+#define format "%d"
 
 typedef char Item;
 
