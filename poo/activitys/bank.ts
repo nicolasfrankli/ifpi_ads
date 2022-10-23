@@ -21,28 +21,62 @@ class Account {
         this._balance = this._balance - valor;
         account._balance = account._balance + valor;
     }
+    deposit(value: number) {
+        this._balance = this._balance + value;
+    }
+}
+
+class Savings extends Account {
+    private _interestRate: number;
+
+    constructor(number: string, balance: number, interestRate: number) {
+        super(number, balance);
+        this._interestRate = interestRate;
+    }
+    public earnInterest(): void {
+        this.deposit(this.balance * this._interestRate/100);
+    }
+    get interestRate(): number {
+        return this._interestRate;
+    }
+}
+
+class taxAccount extends Account {
+    private _discountRate: number;
+
+    constructor(number: string, balance: number, discountRate: number) {
+        super(number, balance);
+        this._discountRate = discountRate;
+    }
+
+    debit(value: number): void {
+        let total = value * (1 + this._discountRate/100);
+        super.withdraw(total);
+    }
 }
 
 class Bank {
     public _accounts: Array<Account> = new Array<Account>();
     private bankTotalBalance: number = 0;
 
-    search_account(id: String): boolean {
+    search_account(id: String): any {
         let count: number = 0;
-        for (let account of this._accounts) {
-            if (id == account._numero){
-                return false;
+        for (var i = 0; i < this._accounts.length; i++) {
+            if (id ==this._accounts[i]._numero){
+                count++;
+                break;
             }
-            count++
         }
-        if (count == this._accounts.length - 1){
-            return true;
+        if (count == 1){
+            return this._accounts[i];
+        } else {
+            return false;
         }
 
     }
 
     add_account(account: Account): void {
-        if (this.search_account(account._numero) != false) {
+        if (this.search_account(account._numero) == false) {
             this._accounts.push(account)
         }
     }
@@ -60,15 +94,14 @@ class Bank {
     averageAccountBalance(): String{
         return `${(this.bankTotalBalance / this.numberofAccounts()).toFixed(2)}`;
     }
+    earnInterest(number: String) {
+        if (this.search_account(number) instanceof Savings) {
+            (<Savings> this.search_account(number)).earnInterest();
+        }
+    }
 }
 
 let conta1: Account = new Account('1', 100);
-let conta2: Account = new Account('2', 100);
-let c3: Account = new Account('3', 1000);
 let inter: Bank = new Bank();
-let nubank: Bank = new Bank();
 inter.add_account(conta1);
-nubank.add_account(conta2);
-inter.add_account(c3);
 console.log(inter.numberofAccounts());
-
