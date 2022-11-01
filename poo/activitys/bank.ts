@@ -3,7 +3,11 @@ class Account {
     private _balance: number;
     constructor(numero, balanceInicial) {
         this._numero = numero;
-        this._balance = balanceInicial;
+        if (this._balance < 0) {
+            throw new Error('Value must be greater than 0.');
+        } else {
+            this._balance = balanceInicial;
+        }
     }
     get balance() {
         return this._balance;
@@ -16,7 +20,7 @@ class Account {
     }
     transfer(valor: number, account) {
         if (this._balance < valor) {
-            throw new Error('Saldo insuficiente.')
+            throw new Error('Saldo insuficiente.');
         }
         this._balance = this._balance - valor;
         account._balance = account._balance + valor;
@@ -99,9 +103,18 @@ class Bank {
             (<Savings> this.search_account(number)).earnInterest();
         }
     }
+    listarContas(): string {
+        let listaString = '';
+        for (let i: number = 0; i < this._accounts.length; i++) {
+            const account = this._accounts[i];
+            listaString = listaString + `Número: ${account._numero}\n Saldo: ${account.balance}`;
+        }
+        return listaString;
+    }
 }
-
-let conta1: Account = new Account('1', 100);
+                      
+let conta1: Account = new Savings('1', 100, 0.5);
 let inter: Bank = new Bank();
 inter.add_account(conta1);
-console.log(inter.numberofAccounts());
+inter.earnInterest("1");
+console.log(conta1);
