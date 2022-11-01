@@ -35,6 +35,10 @@ class List{
 		void addOrd(int m, char n[23]){
    		
 		}
+
+        void subOrd(int m, char n[23]){
+
+        }
 		
 		//mostra todos os elementos do inicio ao final da lista
 		void mostraIniFim(){
