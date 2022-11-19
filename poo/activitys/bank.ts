@@ -76,6 +76,52 @@ export class taxAccount extends Account {
     }
 }
 
+interface Taxable {
+    calculateTributes(): number;
+}
+
+class CurrentAccount extends Account implements Taxable {
+    calculateTributes(): number {
+        return this.balance * 0.10;
+    }
+    
+}
+
+class LifeInsurance implements Taxable {
+    calculateTributes(): number {
+       return 50.00;
+    }
+
+}
+
+class InternalAudit {
+    private _taxable: Taxable[] = [];
+
+    add(taxable: Taxable) {
+        this._taxable.push(taxable);
+    }
+
+    calculateTributes(): number {
+        let total: number = 0.0;
+        for (let i: number = 0; i < this._taxable.length; i++) {
+            total = total + this._taxable[i].calculateTributes();
+        }
+
+        return total;
+    }
+}
+
+let account: CurrentAccount = new CurrentAccount("1", 200);
+let insurance1: LifeInsurance = new LifeInsurance();
+let insurance2: LifeInsurance = new LifeInsurance();
+
+let internalAudit: InternalAudit = new InternalAudit();
+internalAudit.add(account);
+internalAudit.add(insurance1);
+internalAudit.add(insurance2);
+
+console.log(internalAudit.calculateTributes());
+
 export class Bank {
     public _accounts: Array<Account> = new Array<Account>();
     private bankTotalBalance: number = 0;

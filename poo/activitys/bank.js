@@ -96,6 +96,48 @@ var taxAccount = /** @class */ (function (_super) {
     return taxAccount;
 }(Account));
 exports.taxAccount = taxAccount;
+var CurrentAccount = /** @class */ (function (_super) {
+    __extends(CurrentAccount, _super);
+    function CurrentAccount() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CurrentAccount.prototype.calculateTributes = function () {
+        return this.balance * 0.10;
+    };
+    return CurrentAccount;
+}(Account));
+var LifeInsurance = /** @class */ (function () {
+    function LifeInsurance() {
+    }
+    LifeInsurance.prototype.calculateTributes = function () {
+        return 50.00;
+    };
+    return LifeInsurance;
+}());
+var InternalAudit = /** @class */ (function () {
+    function InternalAudit() {
+        this._taxable = [];
+    }
+    InternalAudit.prototype.add = function (taxable) {
+        this._taxable.push(taxable);
+    };
+    InternalAudit.prototype.calculateTributes = function () {
+        var total = 0.0;
+        for (var i = 0; i < this._taxable.length; i++) {
+            total = total + this._taxable[i].calculateTributes();
+        }
+        return total;
+    };
+    return InternalAudit;
+}());
+var account = new CurrentAccount("1", 200);
+var insurance1 = new LifeInsurance();
+var insurance2 = new LifeInsurance();
+var internalAudit = new InternalAudit();
+internalAudit.add(account);
+internalAudit.add(insurance1);
+internalAudit.add(insurance2);
+console.log(internalAudit.calculateTributes());
 var Bank = /** @class */ (function () {
     function Bank() {
         this._accounts = new Array();
@@ -133,8 +175,8 @@ var Bank = /** @class */ (function () {
     };
     Bank.prototype.totalBalance = function () {
         for (var _i = 0, _a = this._accounts; _i < _a.length; _i++) {
-            var account = _a[_i];
-            this.bankTotalBalance += account.balance;
+            var account_1 = _a[_i];
+            this.bankTotalBalance += account_1.balance;
         }
         return this.bankTotalBalance;
     };
@@ -152,8 +194,8 @@ var Bank = /** @class */ (function () {
     Bank.prototype.listAccounts = function () {
         var listaString = '';
         for (var i = 0; i < this._accounts.length; i++) {
-            var account = this._accounts[i];
-            listaString = listaString + "N\u00FAmero: ".concat(account._number, "\n Saldo: ").concat(account.balance);
+            var account_2 = this._accounts[i];
+            listaString = listaString + "N\u00FAmero: ".concat(account_2._number, "\n Saldo: ").concat(account_2.balance);
         }
         return listaString;
     };
