@@ -1,38 +1,58 @@
-class Account {
-    public _numero: String;
+import {InvalidValueError, insufficientFunds, accountNotFound, InvalidSavingError} from "./utils_error.js"
+
+export class Account {
+    public _number: String;
     private _balance: number;
-    constructor(numero, balanceInicial) {
-        this._numero = numero;
-        if (this._balance < 0) {
-            throw new Error('Value must be greater than 0.');
-        } else {
-            this._balance = balanceInicial;
-        }
-    }
+    
     get balance() {
         return this._balance;
     }
-    withdraw(valor: number){
-        if (this._balance < valor) {
-            throw new Error('Saldo insuficiente.');
-        }
-        this._balance = this._balance - valor;
+
+    constructor(numero: string, balanceInicial: number) {
+        this._number = numero;
+        this._balance = balanceInicial;
+        if (this._balance < 0) {
+            throw new Error('Value must be greater than 0.');
+        } 
     }
-    transfer(valor: number, account) {
-        if (this._balance < valor) {
-            throw new Error('Saldo insuficiente.');
+
+
+    private validateValue(value: number):number {
+        if (value <= 0) {
+            throw new InvalidValueError('Value must be greater than 0.');
+        } else {
+            return value;
         }
-        this._balance = this._balance - valor;
-        account._balance = account._balance + valor;
+    } 
+
+    withdraw(value: number): void{ //Saque
+        let validatedValue = this.validateValue(value);
+        if (this._balance < validatedValue) {
+            throw new insufficientFunds('Insufficient funds.');
+        }
+        this._balance = this._balance - value;
     }
-    deposit(value: number) {
-        this._balance = this._balance + value;
+    transfer(value: number, account: Account): void {
+        let validatedValue = this.validateValue(value);
+        if (this._balance < validatedValue) {
+            throw new insufficientFunds('Insufficient funds.');
+        }
+        this._balance = this._balance - validatedValue;  
+        account._balance = account._balance + validatedValue;
+    }
+    deposit(value: number): void {
+        let validatedValue = this.validateValue(value);
+        this._balance = this._balance + validatedValue;
     }
 }
 
-class Savings extends Account {
+export class Savings extends Account {
     private _interestRate: number;
-
+    
+    get interestRate(): number {
+        return this._interestRate;
+    }
+    
     constructor(number: string, balance: number, interestRate: number) {
         super(number, balance);
         this._interestRate = interestRate;
@@ -40,12 +60,9 @@ class Savings extends Account {
     public earnInterest(): void {
         this.deposit(this.balance * this._interestRate/100);
     }
-    get interestRate(): number {
-        return this._interestRate;
-    }
 }
 
-class taxAccount extends Account {
+export class taxAccount extends Account {
     private _discountRate: number;
 
     constructor(number: string, balance: number, discountRate: number) {
@@ -59,32 +76,37 @@ class taxAccount extends Account {
     }
 }
 
-class Bank {
+export class Bank {
     public _accounts: Array<Account> = new Array<Account>();
     private bankTotalBalance: number = 0;
 
-    search_account(id: String): any {
-        let count: number = 0;
-        for (var i = 0; i < this._accounts.length; i++) {
-            if (id ==this._accounts[i]._numero){
-                count++;
-                break;
+    Query(id: String): Account {
+        let wantedAccount!: Account;
+        for (let i = 0; i < this._accounts.length; i++) {
+            if (id == this._accounts[i]._number){
+                return wantedAccount;
+            }
+            break
+        }
+        
+        throw new accountNotFound("Account does not exist.");
+    }
+    QueryByIndex(id: String): number {
+        let wantedIndex: number = -1;
+        for (let i = 0; i < this._accounts.length; i++) {
+            if (id == this._accounts[i]._number){
+                wantedIndex = i;
             }
         }
-        if (count == 1){
-            return this._accounts[i];
-        } else {
-            return false;
-        }
-
+        return wantedIndex;
     }
-
-    add_account(account: Account): void {
-        if (this.search_account(account._numero) == false) {
+    addAccount(account: Account): void {
+        try {
+            this.Query(account._number)
+        } catch (abacate) {
             this._accounts.push(account)
         }
     }
-
     numberofAccounts(): number{
         return this._accounts.length;
     }
@@ -99,22 +121,42 @@ class Bank {
         return `${(this.bankTotalBalance / this.numberofAccounts()).toFixed(2)}`;
     }
     earnInterest(number: String) {
-        if (this.search_account(number) instanceof Savings) {
-            (<Savings> this.search_account(number)).earnInterest();
+        if (this.Query(number) instanceof Savings) {
+            (<Savings> this.Query(number)).earnInterest();
+        } else {
+            throw new InvalidSavingError('The account must be a saving to earn interest.')
         }
     }
-    listarContas(): string {
+    listAccounts(): string {
         let listaString = '';
         for (let i: number = 0; i < this._accounts.length; i++) {
             const account = this._accounts[i];
-            listaString = listaString + `Número: ${account._numero}\n Saldo: ${account.balance}`;
+            listaString = listaString + `Número: ${account._number}\n Saldo: ${account.balance}`;
         }
         return listaString;
+    } 
+
+    withdraw(value: number, number: string): void {
+        let account = this.Query(number);
+        account.withdraw(value);
+    }
+
+    deposit(value: number, number: string): void {
+        let account = this.Query(number);
+        account.deposit(value);
+    }
+
+    delete(number: string): void {
+        let index: number = this.QueryByIndex(number);
+        for (var i = index; i < this._accounts.length; i++) {
+            this._accounts[i] = this._accounts[i + 1];
+        }
+        this._accounts.pop();
+    }
+
+    transfer(numberDebit: string, numberCredit: string, value: number): void {
+        let creditAccount: Account = this.Query(numberCredit);
+        let debitAccount: Account = this.Query(numberDebit);
+        debitAccount.transfer(value, creditAccount);
     }
 }
-                      
-let conta1: Account = new Savings('1', 100, 0.5);
-let inter: Bank = new Bank();
-inter.add_account(conta1);
-inter.earnInterest("1");
-console.log(conta1);

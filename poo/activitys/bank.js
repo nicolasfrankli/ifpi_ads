@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -13,10 +14,16 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Bank = exports.taxAccount = exports.Savings = exports.Account = void 0;
+var utils_error_js_1 = require("./utils_error.js");
 var Account = /** @class */ (function () {
     function Account(numero, balanceInicial) {
-        this._numero = numero;
+        this._number = numero;
         this._balance = balanceInicial;
+        if (this._balance < 0) {
+            throw new Error('Value must be greater than 0.');
+        }
     }
     Object.defineProperty(Account.prototype, "balance", {
         get: function () {
@@ -25,24 +32,36 @@ var Account = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Account.prototype.withdraw = function (valor) {
-        if (this._balance < valor) {
-            throw new Error('Saldo insuficiente.');
+    Account.prototype.validateValue = function (value) {
+        if (value <= 0) {
+            throw new utils_error_js_1.InvalidValueError('Value must be greater than 0.');
         }
-        this._balance = this._balance - valor;
+        else {
+            return value;
+        }
     };
-    Account.prototype.transfer = function (valor, account) {
-        if (this._balance < valor) {
-            throw new Error('Saldo insuficiente.');
+    Account.prototype.withdraw = function (value) {
+        var validatedValue = this.validateValue(value);
+        if (this._balance < validatedValue) {
+            throw new utils_error_js_1.insufficientFunds('Insufficient funds.');
         }
-        this._balance = this._balance - valor;
-        account._balance = account._balance + valor;
+        this._balance = this._balance - value;
+    };
+    Account.prototype.transfer = function (value, account) {
+        var validatedValue = this.validateValue(value);
+        if (this._balance < validatedValue) {
+            throw new utils_error_js_1.insufficientFunds('Insufficient funds.');
+        }
+        this._balance = this._balance - validatedValue;
+        account._balance = account._balance + validatedValue;
     };
     Account.prototype.deposit = function (value) {
-        this._balance = this._balance + value;
+        var validatedValue = this.validateValue(value);
+        this._balance = this._balance + validatedValue;
     };
     return Account;
 }());
+exports.Account = Account;
 var Savings = /** @class */ (function (_super) {
     __extends(Savings, _super);
     function Savings(number, balance, interestRate) {
@@ -50,9 +69,6 @@ var Savings = /** @class */ (function (_super) {
         _this._interestRate = interestRate;
         return _this;
     }
-    Savings.prototype.earnInterest = function () {
-        this.deposit(this.balance * this._interestRate / 100);
-    };
     Object.defineProperty(Savings.prototype, "interestRate", {
         get: function () {
             return this._interestRate;
@@ -60,8 +76,12 @@ var Savings = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Savings.prototype.earnInterest = function () {
+        this.deposit(this.balance * this._interestRate / 100);
+    };
     return Savings;
 }(Account));
+exports.Savings = Savings;
 var taxAccount = /** @class */ (function (_super) {
     __extends(taxAccount, _super);
     function taxAccount(number, balance, discountRate) {
@@ -75,28 +95,36 @@ var taxAccount = /** @class */ (function (_super) {
     };
     return taxAccount;
 }(Account));
+exports.taxAccount = taxAccount;
 var Bank = /** @class */ (function () {
     function Bank() {
         this._accounts = new Array();
         this.bankTotalBalance = 0;
     }
-    Bank.prototype.search_account = function (id) {
-        var count = 0;
+    Bank.prototype.Query = function (id) {
+        var wantedAccount;
         for (var i = 0; i < this._accounts.length; i++) {
-            if (id == this._accounts[i]._numero) {
-                count++;
-                break;
+            if (id == this._accounts[i]._number) {
+                return wantedAccount;
+            }
+            break;
+        }
+        throw new utils_error_js_1.accountNotFound("Account does not exist.");
+    };
+    Bank.prototype.QueryByIndex = function (id) {
+        var wantedIndex = -1;
+        for (var i = 0; i < this._accounts.length; i++) {
+            if (id == this._accounts[i]._number) {
+                wantedIndex = i;
             }
         }
-        if (count == 1) {
-            return this._accounts[i];
-        }
-        else {
-            return false;
-        }
+        return wantedIndex;
     };
-    Bank.prototype.add_account = function (account) {
-        if (this.search_account(account._numero) == false) {
+    Bank.prototype.addAccount = function (account) {
+        try {
+            this.Query(account._number);
+        }
+        catch (abacate) {
             this._accounts.push(account);
         }
     };
@@ -114,13 +142,41 @@ var Bank = /** @class */ (function () {
         return "".concat((this.bankTotalBalance / this.numberofAccounts()).toFixed(2));
     };
     Bank.prototype.earnInterest = function (number) {
-        if (this.search_account(number) instanceof Savings) {
-            this.search_account(number).earnInterest();
+        if (this.Query(number) instanceof Savings) {
+            this.Query(number).earnInterest();
         }
+        else {
+            throw new utils_error_js_1.InvalidSavingError('The account must be a saving to earn interest.');
+        }
+    };
+    Bank.prototype.listAccounts = function () {
+        var listaString = '';
+        for (var i = 0; i < this._accounts.length; i++) {
+            var account = this._accounts[i];
+            listaString = listaString + "N\u00FAmero: ".concat(account._number, "\n Saldo: ").concat(account.balance);
+        }
+        return listaString;
+    };
+    Bank.prototype.withdraw = function (value, number) {
+        var account = this.Query(number);
+        account.withdraw(value);
+    };
+    Bank.prototype.deposit = function (value, number) {
+        var account = this.Query(number);
+        account.deposit(value);
+    };
+    Bank.prototype.delete = function (number) {
+        var index = this.QueryByIndex(number);
+        for (var i = index; i < this._accounts.length; i++) {
+            this._accounts[i] = this._accounts[i + 1];
+        }
+        this._accounts.pop();
+    };
+    Bank.prototype.transfer = function (numberDebit, numberCredit, value) {
+        var creditAccount = this.Query(numberCredit);
+        var debitAccount = this.Query(numberDebit);
+        debitAccount.transfer(value, creditAccount);
     };
     return Bank;
 }());
-var conta1 = new Account('1', 100);
-var inter = new Bank();
-inter.add_account(conta1);
-console.log(inter.numberofAccounts());
+exports.Bank = Bank;
