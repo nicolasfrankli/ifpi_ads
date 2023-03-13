@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Estrutura de um nó da árvore
 typedef struct no {
@@ -29,7 +30,6 @@ Node* insertNode(Node* root, int value) {
         return root;
     }
 }
-
 
 // Função para percorrer a árvore em ordem
 void traverseInOrder(Node* root) {
@@ -71,7 +71,7 @@ int leavesAmount(Node *n) {
     }
 }
 
-// Função para devolver a altura da árvore
+//Função para devolver a altura da árvore
 int treeHeight(Node *n) {
     if (n == NULL) {
         return 0;
@@ -82,5 +82,18 @@ int treeHeight(Node *n) {
         if (leftHeight > rightHeight) {   return 1 + leftHeight;
         } else { return 1 + rightHeight;
         }
+    }
+}
+
+// Função para verificar se a árvore binária possui o item x
+int hasItem(Node *n, int item) {
+    if (n == NULL || n->value != item) {
+        return 0;
+    } else if (n->value == item) {
+        return 1;
+    } else if (n->value < item) {
+        hasItem(n->right, item);
+    } else {
+        hasItem(n->left, item);
     }
 }
