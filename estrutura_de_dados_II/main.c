@@ -14,8 +14,23 @@ int main(void) {
     insertNode(root, 14);
     insertNode(root, 15);
 
+    Node* root1 = NULL;
+    root1 = insertNode(root1, 50);
+    insertNode(root1, 210);
+    insertNode(root1, 20);
+    insertNode(root1, 40);
+    insertNode(root1, 10);
+    insertNode(root1, 1);
+    insertNode(root1, 11);
+    insertNode(root1, 12);
+    insertNode(root1, 13);
+    insertNode(root1, 14);
+    insertNode(root1, 15);
+
     printf("============= TREE =============\n");
     print(root);
+    printf("\n");
+    print(root1);
     printf("\n");
     printf("============= QUESTÃO 3.2 =============\n");
     printf("Total de nós: %d", nodesAmount(root));
@@ -30,13 +45,11 @@ int main(void) {
     printf("Type any number: ");
     int x;
     scanf("%d", &x);
-    if (hasItem(root, x) == 0){
-        printf("%d doesn't exist in tree.\n", x);
-    } else {
-        printf("%d exist in the tree.\n", x);
-    }
+    printf("The number %d %s in the tree.\n", x, hasItem(root, x) ? "exist" : "doens't exist");
     printf("============= QUESTÃO 3.6 =============\n");
     printf("The tree is %s\n", isBinary(root) ? "binary" : "not binary");
+    printf("============= QUESTÃO 3.7 =============\n");
+    printf("The trees are %s\n", compareTrees(root, root1) ? "equals" : "differents");
 
     return 0;
 }
