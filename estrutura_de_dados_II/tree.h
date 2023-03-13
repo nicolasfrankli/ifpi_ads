@@ -87,13 +87,29 @@ int treeHeight(Node *n) {
 
 // Função para verificar se a árvore binária possui o item x
 int hasItem(Node *n, int item) {
-    if (n == NULL || n->value != item) {
+    if (n == NULL) {
         return 0;
     } else if (n->value == item) {
         return 1;
     } else if (n->value < item) {
-        hasItem(n->right, item);
+        return hasItem(n->right, item);
     } else {
-        hasItem(n->left, item);
+        return hasItem(n->left, item);
     }
 }
+
+// Função para verificar se a árvore é binária
+// Se cada nó é uma folha ou tem dois filhos
+bool isBinary(Node* n) {
+    if (n == NULL) {
+        return true;
+    }
+    if (n->left == NULL && n->right == NULL) {
+        return true;
+    }
+    if (n->left == NULL || n->right == NULL) {
+        return false;
+    }
+    return isBinary(n->left) && isBinary(n->right);
+}
+

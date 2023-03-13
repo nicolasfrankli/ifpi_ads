@@ -14,25 +14,29 @@ int main(void) {
     insertNode(root, 14);
     insertNode(root, 15);
 
-    printf("Tree: ");
+    printf("============= TREE =============\n");
     print(root);
     printf("\n");
-    printf("Altura da árvore: %d", treeHeight(root));
-    printf("\n");
+    printf("============= QUESTÃO 3.2 =============\n");
     printf("Total de nós: %d", nodesAmount(root));
     printf("\n");
+    printf("============= QUESTÃO 3.3 =============\n");
     printf("Total de folhas: %d", leavesAmount(root));
     printf("\n");
+    printf("============= QUESTÃO 3.4 =============\n");
+    printf("Altura da árvore: %d", treeHeight(root));
+    printf("\n");
+    printf("============= QUESTÃO 3.5 =============\n");
     printf("Type any number: ");
     int x;
     scanf("%d", &x);
     if (hasItem(root, x) == 0){
-        printf("%d doesn't exist in tree.", x);
+        printf("%d doesn't exist in tree.\n", x);
     } else {
-        printf("%d exist in the tree", x);
+        printf("%d exist in the tree.\n", x);
     }
-    printf("\n");
-
+    printf("============= QUESTÃO 3.6 =============\n");
+    printf("The tree is %s\n", isBinary(root) ? "binary" : "not binary");
 
     return 0;
 }
