@@ -79,7 +79,6 @@ function consult() {
     let number: string = input('Enter account number:');
     let account: Account = franklin.Query(number);
     console.log(account.balance);
-    return account.balance;
 }
 
 function withdraw(){

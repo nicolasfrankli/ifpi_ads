@@ -84,7 +84,6 @@ class CurrentAccount extends Account implements Taxable {
     calculateTributes(): number {
         return this.balance * 0.10;
     }
-    
 }
 
 class LifeInsurance implements Taxable {
@@ -112,15 +111,7 @@ class InternalAudit {
 }
 
 let account: CurrentAccount = new CurrentAccount("1", 200);
-let insurance1: LifeInsurance = new LifeInsurance();
-let insurance2: LifeInsurance = new LifeInsurance();
-
-let internalAudit: InternalAudit = new InternalAudit();
-internalAudit.add(account);
-internalAudit.add(insurance1);
-internalAudit.add(insurance2);
-
-console.log(internalAudit.calculateTributes());
+account.withdraw(10000);
 
 export class Bank {
     public _accounts: Array<Account> = new Array<Account>();

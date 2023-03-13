@@ -1,4 +1,4 @@
-class No{
+/*class No{
 	public:
 		char nome;
 		No *prox;
@@ -81,3 +81,5 @@ main(){
    	  cin>>letra; // Cada letra lida deve ser empilhada, mas so e possível
                               //  usar os metodos da classe Fila
              // Implemente a resposta da questao aqui
+   }
+}*/

@@ -14,21 +14,28 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var calculator = /** @class */ (function () {
-    /*get number1() {
-        return this._part1;
-    }
-
-    get number2(){
-        return this._part2;
-    }*/
     function calculator(number1, number2) {
         this._part1 = 0;
         this._part2 = 0;
         this._part1 = number1;
         this._part2 = number2;
     }
-    calculator.prototype.sum = function (number1, number2) {
-        return number1 + number2;
+    Object.defineProperty(calculator.prototype, "number1", {
+        get: function () {
+            return this._part1;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(calculator.prototype, "number2", {
+        get: function () {
+            return this._part2;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    calculator.prototype.sum = function () {
+        return this._part1 + this._part2;
     };
     calculator.prototype.sub = function (number1, number2) {
         return number1 - number2;
@@ -40,10 +47,12 @@ var scientificCalculator = /** @class */ (function (_super) {
     function scientificCalculator() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    scientificCalculator.prototype.exponentiate = function (number1, number2) {
-        return Math.pow(number1, number2);
+    scientificCalculator.prototype.exponentiate = function () {
+        return Math.pow(this.number1, this.number2);
     };
     return scientificCalculator;
 }(calculator));
 var cassio = new scientificCalculator(5, 2);
-console.log(cassio.exponentiate(5, 2));
+var calc1 = new calculator(1, 10);
+console.log(calc1.sum());
+//console.log(cassio.exponentiate(5, 2));

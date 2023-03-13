@@ -1,6 +1,11 @@
 class vehicle{
     private licensePlates: String;
-    public year: number;
+    private year: number;
+
+    constructor(licenseplate: string, year: number){
+        this.licensePlates = licenseplate;
+        this.year = year;
+    }
 }
 
 class car extends vehicle{

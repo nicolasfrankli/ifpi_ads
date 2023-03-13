@@ -131,13 +131,7 @@ var InternalAudit = /** @class */ (function () {
     return InternalAudit;
 }());
 var account = new CurrentAccount("1", 200);
-var insurance1 = new LifeInsurance();
-var insurance2 = new LifeInsurance();
-var internalAudit = new InternalAudit();
-internalAudit.add(account);
-internalAudit.add(insurance1);
-internalAudit.add(insurance2);
-console.log(internalAudit.calculateTributes());
+account.withdraw(10000);
 var Bank = /** @class */ (function () {
     function Bank() {
         this._accounts = new Array();

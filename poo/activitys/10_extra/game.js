@@ -14,8 +14,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var warrior = /** @class */ (function () {
+    // id: number;
+    // description: string;
+    // damage: number;
+    // life: number = 10;
     function warrior(idNumber, description, damage, life) {
-        this.life = 10;
         this.id = idNumber;
         this.description = description;
         this.damage = damage;
@@ -26,12 +29,6 @@ var warrior = /** @class */ (function () {
             return true;
         else
             return false;
-        // switch (this.life) {
-        //     case 0:
-        //         true;
-        //     default:
-        //         false;
-        // }   
     };
     warrior.prototype.defendAttack = function (attackvalue) {
         this.life -= attackvalue;
@@ -59,12 +56,6 @@ var militaryBase = /** @class */ (function () {
             return true;
         else
             return false;
-        // switch (this.life) {
-        //     case 0:
-        //         true;
-        //     default:
-        //         false;
-        // }   
     };
     militaryBase.prototype.defendAttack = function (attackvalue) {
         this.percentualDamage -= attackvalue / 100;
@@ -119,23 +110,22 @@ var battleField = /** @class */ (function () {
     return battleField;
 }());
 var italico = new warrior(1, 'LOL', 100, 20);
-var emanuela = new warrior(2, 'Terraria', 50, 10);
+var brito = new warrior(2, 'Terraria', 50, 10);
 var ifpi = new militaryBase(3, 5, 4, 0);
 var nextFacebook = new Army("nEXT fACEBOOK");
 //Exército 1
 nextFacebook._power.push(italico);
-nextFacebook._power.push(emanuela);
+nextFacebook._power.push(brito);
 nextFacebook._power.push(ifpi);
 //Exército 2
 var ADS = new Army('ADS');
 var refeitorio = new militaryBase(3, 5, 4, 0);
-var IGU = new warrior(4, 'FDP', 10, 20);
+var Nicolas = new warrior(4, 'Aluno', 10, 20);
 ADS._power.push(refeitorio);
-ADS._power.push(IGU);
+ADS._power.push(Nicolas);
 //Batalha
-italico.attack(IGU);
-console.log(IGU.isDown());
-emanuela.attack(refeitorio);
+italico.attack(Nicolas);
+brito.attack(refeitorio);
 //Result
 var fripisa = new battleField();
 fripisa.evaluate(nextFacebook, ADS);

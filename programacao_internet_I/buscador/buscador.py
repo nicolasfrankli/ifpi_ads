@@ -1,18 +1,18 @@
 from bs4 import BeautifulSoup 
 import requests
-"""response = requests.get('https://www.mppi.mp.br/internet/', 'alunos')"""
 import requests_cache
 
-# Configura o cache para o Requests
 requests_cache.install_cache('web_cache')
 
 def search(keyword, url, depth):
 
-    results = []
     response = requests.get(url)
-    
     soup = BeautifulSoup(response.content, 'html.parser')
+
+    links = []
+    results = []
     text = soup.get_text()
+    references = 0
 
     if keyword in text:
         start_index = max(text.index(keyword) - 20, 0)
@@ -23,15 +23,20 @@ def search(keyword, url, depth):
     count = 0 
     if depth > 0:
         links = soup.find_all('a', href=True)
-        print(f'----------------Nível ${depth}----------------')
         for link in links:
-            if link != '':
-                url = link.get('href')
-                if url.startswith('http'):
-                    print(f'Acessando ${url}')
-                    results += search(keyword, url, depth -1)
-
+            url = link.get('href')
+            if url.startswith('http'):
+                if url in link:
+                    references += 1
+                phrase = search(keyword, url, depth -1)
+                results.append(phrase)
+                if len(phrase) != 0:
+                    print(f'{url} -> {phrase}')
+            #    count+=1
+        
     return results
 
+output = search('Gestão','https://g4educacao.com/portal/o-que-e-blockchain', 1)
 
-print(search('Entenda','https://g4educacao.com/portal/o-que-e-blockchain', 2))
+print('\n-----------------Relatório Final-----------------\n')
+print(f'Trecho do texto contento a palavra: {output[0]}')
