@@ -27,7 +27,7 @@ int main(void) {
     insertNode(root1, 14);
     insertNode(root1, 15);
 
-    printf("============= TREE =============\n");
+    printf("============= TREES =============\n");
     print(root);
     printf("\n");
     print(root1);
@@ -50,6 +50,14 @@ int main(void) {
     printf("The tree is %s\n", isBinary(root) ? "binary" : "not binary");
     printf("============= QUESTÃO 3.7 =============\n");
     printf("The trees are %s\n", compareTrees(root, root1) ? "equals" : "differents");
+    printf("============= QUESTÃO 3.9 =============\n");
+    printf("The tree is descending order is ");
+    traverseInDescOrder(root);
+    printf("\n");
+    printf("The tree is ascending order is ");
+    traverseInOrder(root);
+    printf("\n");
+
 
     return 0;
 }

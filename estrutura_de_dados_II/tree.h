@@ -8,6 +8,13 @@ typedef struct no {
     struct no *left, *right;
 } Node;
 
+// Estrutura de um nó da árvore de expressão aritmética
+typedef struct Anode {
+    char value;
+    struct Anode* left;
+    struct Anode* right;
+} Anode;
+
 // Função para criar um novo nó
 Node* newNode(int value) {
     Node* node = (Node*) malloc(sizeof(Node));
@@ -28,14 +35,6 @@ Node* insertNode(Node* root, int value) {
             root->right = insertNode(root->right, value);
         }
         return root;
-    }
-}
-
-// Função para percorrer a árvore em ordem
-void traverseInOrder(Node* root) {
-    if (root != NULL) {
-        traverseInOrder(root->left);        
-        traverseInOrder(root->right);
     }
 }
 
@@ -123,5 +122,47 @@ bool compareTrees(Node *n1, Node *n2) {
         return false;
     } else {
         return compareTrees(n1->left, n2->left) && compareTrees(n1->right, n2->right);
+    }
+}
+
+// Avalia uma expressão aritmética representada por uma árvore binária, cujos nós guardam números inteiros.
+// Raiz é uma operação e subárvores são operandos
+int value(Anode* root) {
+    if (root == NULL) {
+        return 0;
+    } 
+    if (root->left == NULL && root ->right == NULL) {
+        return root->value - '0';
+    }
+    int leftValue = value(root->left);
+    int rightValue = value(root->right); 
+    switch (root->value) {
+       case '+': return leftValue + rightValue; 
+       case '-': return leftValue - rightValue; 
+       case '*': return leftValue * rightValue; 
+       case '/': return leftValue / rightValue; 
+       default: return 0;
+    }
+}
+
+// Função para percorrer a árvore em ordem decrescente
+void traverseInDescOrder(Node* root) {
+    if (root != NULL) {
+        traverseInDescOrder(root->right);
+        printf("%d", root->value);
+        traverseInDescOrder(root->left);        
+    } else {
+        return;
+    }
+}
+
+// Função para percorrer a árvore em ordem crescente
+void traverseInOrder(Node* root) {
+    if (root != NULL) {
+        traverseInDescOrder(root->left);
+        printf("%d", root->value);        
+        traverseInDescOrder(root->right);
+    } else {
+        return;
     }
 }
