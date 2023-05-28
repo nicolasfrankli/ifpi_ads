@@ -1,0 +1,24 @@
+O erro está em tmp->right é igual a p. 
+A condição tmp->right != p deve ser negada, pois é a condição para sair do loop e avançar para o próximo nó.
+
+void MorrisPreorder(){
+    ArvoreNo<T> *p=root, *tmp;
+    while (p!=0){
+        if (p->left==0){
+            visit(p);
+            p=p->right;
+        }
+        else{
+            tmp = p->left;
+            while (tmp->right!=0 && tmp->right!=p)
+                tmp=tmp->right;
+                if (tmp->right==0){
+                    visit(p);                    
+                    tmp->right=p;
+                    p=p->left;
+                }
+                else{                    
+                    tmp->right=0;
+                    p=p->right;    
+                } /*fim else*/  }
+        } /*fim while*/    }
