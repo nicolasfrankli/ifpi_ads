@@ -1,0 +1,20 @@
+A.
+10 5 3 7 20 15 24
+
+B. 
+    Comece com o nó atual definido como a raiz da árvore.
+    Enquanto o nó atual não for nulo:
+    Se o nó atual não tiver filho esquerdo:
+        Visite o nó atual e vá para o filho direito.
+    Caso contrário, encontre o predecessor do nó atual:
+        O predecessor é o nó mais à direita na subárvore esquerda do nó atual.
+    Se o predecessor não tiver um filho direito:
+        Estabeleça um "thread" do predecessor para o nó atual.
+        Visite o nó atual e vá para o filho esquerdo.
+    Se o predecessor já tiver um filho direito apontando para o nó atual:
+        Remova o "thread".
+        Vá para o filho direito do nó atual.
+    Repita os passos 2 até que o nó atual seja nulo.
+
+C.
+Está correto
