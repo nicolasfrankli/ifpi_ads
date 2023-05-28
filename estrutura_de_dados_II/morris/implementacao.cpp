@@ -70,13 +70,15 @@ void morrisPreorderTraversal(TreeNode<T>* root) {
 
 int main() {
     // Exemplo de uso
-    TreeNode<int>* root = new TreeNode<int>(4);
-    root->left = new TreeNode<int>(2);
-    root->right = new TreeNode<int>(6);
-    root->left->left = new TreeNode<int>(1);
+    TreeNode<int>* root = new TreeNode<int>(10);
+    root->left = new TreeNode<int>(5);
+    root->right = new TreeNode<int>(20);
+    root->left->left = new TreeNode<int>(3);
+    root->left->right = new TreeNode<int>(7);
+    root->right->left = new TreeNode<int>(15);
+    root->right->right = new TreeNode<int>(24);
 
-
-     std::cout << "In-order traversal: ";
+    std::cout << "In-order traversal: ";
     morrisInorderTraversal(root);
     std::cout << std::endl;
 
