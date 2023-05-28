@@ -33,7 +33,7 @@ SELECT a.* FROM apartamento a JOIN categoria c ON a.cod_cat = c.cod_cat WHERE c.
 SELECT COUNT(*) FROM apartamento 
 
 /*8. Somatório dos preços das categorias.*/
-SELECT COUNT(*) FROM apartamento 
+SELECT sum(valor_dia) FROM apartamento 
 
 /*9. Média de preços das categorias.*/
 SELECT ROUND(AVG(valor_dia)::numeric, 2) FROM categoria;

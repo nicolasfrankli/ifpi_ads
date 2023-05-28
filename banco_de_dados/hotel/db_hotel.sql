@@ -56,7 +56,7 @@ create TABLE reserva (
 	dt_res DATE NOT NULL,
 	dt_prev_ent DATE,
 	dt_prev_sai DATE
-)
+);
 
 INSERT INTO reserva VALUES (1, 1, 1, '2023-04-03', NULL, NULL);
-INSERT INTO reserva VALUES (2, 2, 2, '2023-04-05', NULL, NULL)
+INSERT INTO reserva VALUES (2, 2, 2, '2023-04-05', NULL, NULL);
