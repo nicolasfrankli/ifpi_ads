@@ -1,33 +1,12 @@
+package model; // Supondo que a classe Tarefa também esteja dentro do pacote "model"
+
 public class Tarefa {
-    private int id;
-    private String descricao;
-    private boolean concluida;
+    private Usuario responsavel;
 
-    // Construtor
-    public Tarefa(int id, String descricao, boolean concluida) {
-        this.id = id;
-        this.descricao = descricao;
-        this.concluida = concluida;
+    public Tarefa(Usuario responsavel) {
+        this.responsavel = responsavel;
     }
 
-    // Getters e setters
-    public int getId() {
-        return id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public boolean isConcluida() {
-        return concluida;
-    }
-
-    public void setConcluida(boolean concluida) {
-        this.concluida = concluida;
-    }
+    // Resto da classe Tarefa
+    // ...
 }

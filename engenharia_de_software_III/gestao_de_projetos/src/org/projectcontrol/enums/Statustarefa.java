@@ -1,4 +1,4 @@
-// https://glysns.gitbook.io/java-basico/programacao-orientada-a-objetos/enums
+package projectcontrol;
 
 public enum StatusTarefa {
 	PENDENTE ("Pendente"),
