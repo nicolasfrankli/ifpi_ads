@@ -1,0 +1,10 @@
+1. Qual a relação que coesão possui com as responsabilidades de uma classe?
+Em software coesão é harmonia e bom funcionamento entre elementos de código que
+tratam da mesma coisa. Portanto, uma classe coesa executa bem a sua única tarefa de 
+forma concisa e não deve ter várias responsabilidades.
+
+2. Contextualize o conceito de coesão de acordo com as fontes abaixo:
+Uma classe altamente coesa tem responsabilidades e propósitos claros e bem definidos,
+enquanto uma classe com baixa coesão tem muitas responsabilidades diferentes e pouco
+relacionadas.
+
