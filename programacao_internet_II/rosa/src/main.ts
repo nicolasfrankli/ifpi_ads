@@ -1,16 +1,17 @@
 import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import { RendaFixaPrefixadaModule } from '../investimentos_renda_fixa/rendafixa.prefixada.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(RendaFixaPrefixadaModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // Setup Template Engine
-  app.useStaticAssets(join(__dirname, '..', 'public'));
-  app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('hbs');
-
+  //public
+   app.useStaticAssets(join(__dirname, '..', '..', 'public'));
+   //views
+   app.setBaseViewsDir(join(__dirname, '..', 'views'));
+   app.setViewEngine('hbs');
+ 
   await app.listen(3000);
 }
 bootstrap();

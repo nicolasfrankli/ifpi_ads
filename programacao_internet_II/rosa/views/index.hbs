@@ -1,28 +1,44 @@
 {{!-- <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <title>NestJS MVC</title>
+  <title>Formulário de Investimento em Renda Fixa</title>
 </head>
 <body>
-  <img id="logo" src="images/nest-logo.svg" alt="NestJS Logo">
-  <h1>Hello NestJS MVC</h1>
-  <p>Olá {{nome}}! Seu nome tem {{qtd_letras}}</p>
+  <h1>Formulário de Investimento em Renda Fixa</h1>
+  <form action="/submit-form" method="post">
+    <label for="nome">Nome do Investimento (até 32 caracteres):</label>
+    <input type="text" id="nome" name="nome" required maxlength="32"><br>
 
-  <h2>Calcule seu IMC</h2>
-  <a href="form-imc">Calcular meu IMC</a>
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+      <option value="Disponível">Disponível</option>
+      <option value="Indisponível">Indisponível</option>
+    </select><br>
 
+    <label for="destinacao">Destinação (até 180 caracteres):</label>
+    <textarea id="destinacao" name="destinacao" required maxlength="180"></textarea><br>
+
+    <label for="taxaRentabilidade">Taxa de Rentabilidade a.a. (%):</label>
+    <input type="number" id="taxaRentabilidade" name="taxaRentabilidade" required min="1" max="20"><br>
+
+    <label for="prazoMinimo">Prazo Mínimo para Realização (meses):</label>
+    <input type="number" id="prazoMinimo" name="prazoMinimo" required min="0" max="48"><br>
+
+    <label for="taxaAdministracao">Taxa de Administração (%):</label>
+    <input type="number" id="taxaAdministracao" name="taxaAdministracao" required min="0" max="100"><br>
+
+    <button type="submit">Adicionar Investimento</button>
+  </form>
 </body>
 </html> --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulário de Investimento em Renda Fixa</title>
+  <title>Document</title>
 </head>
 <body>
   <h1>Formulário de Investimento em Renda Fixa</h1>
