@@ -1,0 +1,24 @@
+@startuml Faculdade
+class Aluno { 
+    nome: string 
+    matricula: string
+    endereco: string
+    cpf: string
+}
+
+class Professor {
+    nome: string
+    matricula: string
+    endereco: string
+
+}
+
+class Disciplina {
+    nome: string
+}
+
+class Turma {
+    sigla: string
+}
+
+@enduml
