@@ -1,13 +1,15 @@
 import { create } from 'domain';
-import { Autor } from '../models/Autor'
+import { Autor } from './Autor'
+import { ulid } from 'ulidx';
 
-interface Topico {
-  id: number;
+
+export interface Topico {
+  id: String;
   descricao: string;
-  autor: Autor;
+  //autor: Autor;
   created_at: Date;
   tags: string[];
   active: boolean;
 }
 
-export default Topico;
+
