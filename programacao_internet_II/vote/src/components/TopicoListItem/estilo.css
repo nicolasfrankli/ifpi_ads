@@ -1,0 +1,30 @@
+.bigsquare{
+    width: 100%;
+    height: 30vh;
+    background-color: black;
+    border: 1px solid #ccc;
+    padding: 16px;
+    margin: 16px;
+}
+
+.titletopico {
+    color: white;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.date {
+    color: white;
+    text-align: left;
+    vertical-align:bottom;
+}
+
+.curtidas_container{
+    text-align: left;
+    vertical-align:bottom;
+}
+
+.curtidas {
+    color: white;
+}

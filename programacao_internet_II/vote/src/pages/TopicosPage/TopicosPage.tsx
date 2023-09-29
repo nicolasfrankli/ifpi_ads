@@ -2,7 +2,8 @@ import { ulid } from 'ulidx';
 import { useState } from 'react';
 import { Topico } from '../../models/Topico';
 import { Autor } from '../../models/Autor'
-import { TopicoForm } from '../../components/TopicoForm/TopicoForm';
+import { TopicoForm } from '../../components/TopicoForm';
+import { TopicosList } from '../../components/TopicoList';
 
 export function TopicosPage() {
     
@@ -21,10 +22,11 @@ export function TopicosPage() {
     }
 
     return (
-            <>
-              <TopicoForm onAdd={handleAddTopico} />
-            </>
-          )
+      <>
+        <TopicoForm onAdd={handleAddTopico} />
+        <TopicosList topicos={topicos} />
+      </>
+      )
 }
 
 
