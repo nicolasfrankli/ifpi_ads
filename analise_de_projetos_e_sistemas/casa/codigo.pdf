@@ -1,0 +1,68 @@
+PAREDE
+enum enumAcabamento {
+    Quarto,
+    Banheiro,
+    Cozinha
+}
+class parede {
+    altura: number;
+    largura: number;
+    Acabamento: enumAcabamento; 
+
+    constructor(a: number, l: number, ac: enumAcabamento){
+        this.altura = a;
+        this.largura = l;
+        this.Acabamento = ac;
+    }
+}
+
+TELHADO
+enum tipoTelha {
+    externa,
+    interna
+}
+class telhado {
+    area: number;
+    tipoTelha: tipoTelha; 
+
+    constructor(a: number, b: tipoTelha){
+        this.area = a;
+        this.tipoTelha = b;
+    }
+}
+
+ESPELHO
+export enum enumTipoVidro {
+    Temperado
+}
+class espelho {
+    tipoVidro: enumTipoVidro;
+    altura: number;
+    largura: number;
+
+    constructor(t: enumTipoVidro, a: number, l: number){
+        this.tipoVidro = t;
+        this.altura = a;
+        this.largura = l;
+    }
+}
+
+CASA
+class casa extends moradia {
+    telhadoAreaExterna: telhado;
+    telhadoAreaInterna: telhado;
+    paredeQuarto: parede;
+    paredeCozinha: parede;
+    paredeBanheiro: parede;
+    EspelhoCorredor: espelho;
+
+    constructor(tae: telhado, tai: telhado, pq: parede, pc: parede, pb: parede, ec: espelho){
+        super();
+        this.telhadoAreaExterna = tae;
+        this.telhadoAreaInterna = tai;
+        this.paredeQuarto = pq;
+        this.paredeCozinha = pc;
+        this.paredeBanheiro = pb;
+        this.EspelhoCorredor = ec;
+    }
+}

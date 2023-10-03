@@ -1,0 +1,138 @@
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgb(33, 33, 33);
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: white;
+
+    & .lista{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    & .icon-person{
+        margin:0;
+        width: 40px;
+        height: 40px;
+    }
+
+    & .action-icon{
+        width: 40px;
+        height: 40px;
+    }
+
+    & .pessoa{
+        margin-right: 30px;
+        margin-left: 0;
+    }
+}
+
+p,button{
+    display: none;
+}
+
+@media (min-width: 786px) {
+    body{
+        display:flex;
+        flex-direction: row;
+        gap: 0;
+    }
+    .main{
+        position: absolute;
+        right: 0;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    .sidebar{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width:30%;
+        height:100vh;
+        left:0;
+        & .pessoa{
+            align-items: center;
+            margin-top: 100px;
+            margin-right: 0;
+            margin-bottom: 50px;
+            padding-right: 50px;
+            padding-left: 50px;
+            border-bottom: 2px solid #333;
+            & .div-icon-person{
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        & .lista{
+            flex-direction: column;
+            & .item{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        & .divbutton{
+            margin-top: 50px;
+            & .botao{
+                padding: 10 20px;
+                background-color: red;
+                color:white
+            }
+        }
+    }
+
+    p,button{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+}
+
+
+@media (min-width: 769px) {
+    .sidebar{
+        & .pessoa{
+            display: flex;
+            flex-direction: row;
+
+            & .div-icon-person{
+                margin-right: 20px;
+            }
+
+            & .dados{
+                & .link, autoremail{
+                    text-align: left;
+                }
+            }
+
+        }
+        & .lista{
+            & .item{
+                flex-direction: row;
+                & .div-icon-action{
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+}
