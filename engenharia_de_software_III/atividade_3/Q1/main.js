@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var Autor_1 = require("./Autor");
+var Post_1 = require("./Post");
+var RepositorioDePosts_1 = require("./RepositorioDePosts");
+var autor = new Autor_1.Autor(0, "Nicolas", "abacate");
+var data = new Date();
+var post = new Post_1.Post(0, "Abacate", autor, data, "/Users/nicolasgabriel/Documents/ifpi/engenharia_de_software_III/atividade_3/Q1/post.txt");
+var repositorio = new RepositorioDePosts_1["default"]();
+repositorio.saveToFile(post);
+console.log(autor.getNome());
