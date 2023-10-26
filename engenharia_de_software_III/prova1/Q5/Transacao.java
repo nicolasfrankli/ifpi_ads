@@ -1,4 +1,4 @@
-package q05;
+package Q5;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,27 +10,20 @@ public class Transacao {
     private String tipo; // Tipos: DEPOSITO, RETIRADA, TRANSFERENCIA...
 
     public Transacao(double valor, Date data, String tipo) {
+        this.valor = valor;
+        this.tipo = tipo;
+        this.data = data;
     }
 
-    public void salvarTransacao() {
-        try (FileWriter writer = new FileWriter("log_transacoes.txt", true)) {
-            writer.write("Data: " + data + ", Valor: " + valor +
-                         ", Tipo: " + tipo + "\n");
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar a transação: " + e.getMessage());
-        }
+    public Date getData() {
+        return data;
     }
 
-    public double calcularTaxas() {
-        switch (tipo.toUpperCase()) {
-            case "DEPOSITO":
-                return valor * 0.01;
-            case "RETIRADA":
-                return valor * 0.02;
-            case "TRANSFERENCIA":
-                return valor * 0.015;
-             default:
-                return 0;
-        }
+    public String getTipo() {
+        return tipo;
+    }
+
+    public double getValor() {
+        return valor;
     }
 }
