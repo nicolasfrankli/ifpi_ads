@@ -17,6 +17,4 @@ export class CalculadoraImpostoDeRenda{
         // E assim por diante, para outros intervalos...
         return baseCalculo * 0.275 - 869.36; // Para bc acima de 4664.68
     }
-
-    
 }

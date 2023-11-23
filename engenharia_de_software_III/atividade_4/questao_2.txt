@@ -1,0 +1,2 @@
+Uma solução seria adicionar um atributo Titular na classe Conta, em vez de ser ContaCliente seria
+Pessoa, e o atributo Titular seria do tipo Pessoa. O que evitaria a herança.
