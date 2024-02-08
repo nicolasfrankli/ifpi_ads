@@ -1,0 +1,3 @@
+class categoria {
+    nome: string;
+}
